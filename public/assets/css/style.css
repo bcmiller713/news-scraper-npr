@@ -1,0 +1,22 @@
+#home, #saved {
+	color: #3273dc;
+}
+
+.hero.is-info a:not(.button) {
+	color: #3273dc;
+}
+
+.dropdown {
+	display: none;
+}
+
+#scrape-results {
+	margin-bottom: 6em;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 2em 0;
+}
