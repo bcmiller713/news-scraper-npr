@@ -1,8 +1,4 @@
-#home, #saved {
-	color: #3273dc;
-}
-
-.hero.is-info a:not(.button) {
+a#home, a.home, a#saved, a.saved {
 	color: #3273dc;
 }
 
@@ -10,13 +6,67 @@
 	display: none;
 }
 
-#scrape-results {
-	margin-bottom: 6em;
+section.section {
+	padding-bottom: 0;
+	min-height: 100%;
+}
+
+div.container {
+	min-height: 100%;
+}
+
+div#scrape-results {
+	min-height: 100%;
+	margin-bottom: 200px;
+}
+
+.result-text {
+	float: left;
+	width: 80%;
+	padding-bottom: 30px;
+}
+
+.save-article {
+	float: right;
+	margin-top: 25px;
+}
+
+.result-div {
+ clear: both;
+}
+
+.saved-text {
+	float: left;
+	width: 70%;
+	padding-bottom: 30px;
+}
+
+.comments-button {
+	float: right;
+	margin-top: 25px;
+}
+
+.unsave-button {
+	float: right;
+	margin-top: 25px;
+	margin-left: 20px;
+}
+
+.saved-div {
+ clear: both;
 }
 
 .footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	padding: 2em 0;
+	padding: 40px 0;
 }
+
+span.icon {
+	padding-right: 25px;
+	padding-left: 15px;
+}
+
+
+/*Make media query at viewport width 851px for article buttons*/

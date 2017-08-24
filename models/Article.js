@@ -17,11 +17,17 @@ var ArticleSchema = new Schema({
     required: true,
     unique: true
   },
-  // This only saves one comment's ObjectId, ref refers to the comment model
-  comment: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }
+  // boolean to flag articles as saved
+  saved: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  // This will save an array of comments ObjectIds or comment objects?
+  comments:[{
+        type: Schema.ObjectId,
+        ref:'Comment'
+    }]
 });
 
 // Create the Article model with the ArticleSchema

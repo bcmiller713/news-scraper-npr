@@ -14,7 +14,7 @@
       <a class="navbar-item" href="/">
         Home
       </a>
-      <a id="saved" class="navbar-item" href="/saved">
+      <a class="saved navbar-item" href="/saved">
         Saved Articles
       </a>
     </div>
@@ -27,7 +27,7 @@
       <div class="box dropdown is-pulled-right">
         <ul>
           <li><a class="navbar-item" href="/">Home</a></li>
-          <li><a class="navbar-item" href="/saved">Saved Articles</a></li>
+          <li><a id="saved" class="navbar-item" href="/saved">Saved Articles</a></li>
         </ul>
       </div>
       <h1 class="title">
@@ -41,8 +41,9 @@
 </section>
 
 <section class="section">
-  <div id="saved-articles" class="container">
+  <div class="container">
     <h1 class="title">Saved Articles</h1>
+    <div id="saved-results"></div>
   </div>
 </section>
 
@@ -55,4 +56,27 @@
     </div>
   </div>
 </footer>
-      
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p id="comments-header" class="modal-card-title"></p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div id="comments-list">
+        <p>Write the first comment for this article.</p>
+      </div>
+      <hr>
+      <div id="new-comment-field">
+        <textarea></textarea>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button id="save-comment" class="button is-success">Save Comment</button>
+    </footer>
+  </div>
+</div>
+
+<script src="/assets/js/saved.js"></script>

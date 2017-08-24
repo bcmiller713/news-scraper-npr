@@ -5,13 +5,10 @@ var Schema = mongoose.Schema;
 
 // Create the comment schema
 var CommentSchema = new Schema({
-  // Just a string
-  username: {
-    type: String
-  },
-  // Just a string
+  // The comment text
   body: {
-    type: String
+    type: String,
+    required: true
   }
 });
 

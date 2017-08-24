@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/saved", (req, res) => {
-	res.render("favorites");
+	res.render("saved");
 });
 
 module.exports = router;

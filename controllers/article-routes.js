@@ -5,26 +5,28 @@ var Comment = require("../models/Comment.js");
 var Article = require("../models/Article.js");
 var router = express.Router();
 
-// A GET request to scrape the NPR website
+
+// ============= ROUTES FOR HOME PAGE =============//
+
+// Scrape data from NPR website and save to mongodb
 router.get("/scrape", function(req, res) {
-  // First, grab the body of the html with request
+  // Grab the body of the html with request
   request("http://www.npr.org/sections/news/archive", function(error, response, html) {
-    // Then, load that into cheerio and save it to $ for a shorthand selector
+    // Load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
-    // Finally, grab every article tag within a div with class archivelist, and do the following:
+    // Grab every part of the html that contains a separate article
     $("div.archivelist > article").each(function(i, element) {
 
       // Save an empty result object
       var result = {};
 
-      // Add the text and href of every link, and save them as properties of the result object
+      // Get the title and description of every article, and save them as properties of the result object
+      // result.title saves entire <a> tag as it appears on NPR website
       result.title = $(element).children("div.item-info").children("h2.title").html();
-      // above saves entire a tag as it appears on NPR website
-      console.log(result.title);
+      // result.description saves text description
 			result.description = $(element).children("div.item-info").children("p.teaser").children("a").text();
-      console.log(result.description);
+      
       // Using our Article model, create a new entry
-      // This effectively passes the result object to the entry
       var entry = new Article(result);
 
       // Now, save that entry to the db
@@ -60,6 +62,75 @@ router.get("/articles", function(req, res) {
     }
   });
 });
+
+// Save an article
+router.post("/articles/:id", function(req, res) {
+  // Use the article id to find and update it's saved property to true
+  Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+  // Execute the above query
+  .exec(function(err, doc) {
+    // Log any errors
+    if (err) {
+      console.log(err);
+    }
+    // Log result
+    else {
+      console.log("doc: ", doc);
+    }
+  });
+});
+
+
+// ============= ROUTES FOR SAVED ARTICLES PAGE =============//
+
+// Grab an article by it's ObjectId
+router.get("/articles/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  Article.findOne({ "_id": req.params.id })
+  // ..and populate all of the comments associated with it
+  .populate("comments")
+  // now, execute our query
+  .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+      res.json(doc);
+    }
+  });
+});
+
+// // Create a new comment ========== NEEDS WORK =============
+// router.post("/articles/:id", function(req, res) {
+//   // Create a new comment and pass the req.body to the entry
+//   var newComment = new Comment(req.body);
+
+//   // And save the new comment the db
+//   newComment.save(function(error, doc) {
+//     // Log any errors
+//     if (error) {
+//       console.log(error);
+//     }
+//     // Otherwise
+//     else {
+//       // Use the article id to find and update it's comment
+//       Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "comments": doc._id }})
+//       // Execute the above query
+//       .exec(function(err, doc) {
+//         // Log any errors
+//         if (err) {
+//           console.log(err);
+//         }
+//         else {
+//           // Or send the document to the browser
+//           res.send(doc);
+//         }
+//       });
+//     }
+//   });
+// });
 
 
 module.exports = router;
