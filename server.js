@@ -16,6 +16,7 @@ var cheerio = require("cheerio");
 mongoose.Promise = Promise;
 
 // Initialize Express
+var port = process.env.PORT || 3000;
 var app = express();
 
 // Use body parser with the app
@@ -35,7 +36,8 @@ app.use("/", articleRouter);
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/news-scraper");
+// mongoose.connect("mongodb://localhost/news-scraper");
+mongoose.connect("mongodb://heroku_hmpnswzv:fm7inj72s3n17kevhkrponbij@ds151153.mlab.com:51153/heroku_hmpnswzv");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -49,6 +51,6 @@ db.once("open", function() {
 });
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("App running on port 3000!");
 });
