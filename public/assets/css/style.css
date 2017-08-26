@@ -15,7 +15,7 @@ div.container {
 	min-height: 100%;
 }
 
-div#scrape-results {
+div#scrape-results, div#saved-results {
 	min-height: 100%;
 	margin-bottom: 200px;
 }

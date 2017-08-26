@@ -42,9 +42,9 @@ router.get("/scrape", function(req, res) {
       });
 
     });
-  });
-  // Reload the page so that newly scraped articles will be shown on the page
-  res.redirect("/");
+    // Reload the page so that newly scraped articles will be shown on the page
+    res.redirect("/");
+  });  
 });
 
 
@@ -64,7 +64,7 @@ router.get("/articles", function(req, res) {
 });
 
 // Save an article
-router.post("/articles/:id", function(req, res) {
+router.post("/save/:id", function(req, res) {
   // Use the article id to find and update it's saved property to true
   Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
   // Execute the above query
@@ -102,35 +102,35 @@ router.get("/articles/:id", function(req, res) {
   });
 });
 
-// // Create a new comment ========== NEEDS WORK =============
-// router.post("/articles/:id", function(req, res) {
-//   // Create a new comment and pass the req.body to the entry
-//   var newComment = new Comment(req.body);
-
-//   // And save the new comment the db
-//   newComment.save(function(error, doc) {
-//     // Log any errors
-//     if (error) {
-//       console.log(error);
-//     }
-//     // Otherwise
-//     else {
-//       // Use the article id to find and update it's comment
-//       Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "comments": doc._id }})
-//       // Execute the above query
-//       .exec(function(err, doc) {
-//         // Log any errors
-//         if (err) {
-//           console.log(err);
-//         }
-//         else {
-//           // Or send the document to the browser
-//           res.send(doc);
-//         }
-//       });
-//     }
-//   });
-// });
+// Create a new comment
+router.post("/comment/:id", function(req, res) {
+  // Create a new comment and pass the req.body to the entry
+  var newComment = new Comment(req.body);
+  // And save the new comment the db
+  newComment.save(function(error, newComment) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise
+    else {
+      // Use the article id to find and update it's comment
+      Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comments": newComment._id }}, { new: true })
+      // Execute the above query
+      .exec(function(err, doc) {
+        // Log any errors
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log("doc: ", doc);
+          // Or send the document to the browser
+          res.send(doc);
+        }
+      });
+    }
+  });
+});
 
 
 module.exports = router;

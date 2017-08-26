@@ -61,7 +61,9 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p id="comments-header" class="modal-card-title"></p>
+      <p id="comments-header" class="modal-card-title">
+        {{!-- Modal header text dynamically rendered --}}
+      </p>
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
@@ -69,12 +71,12 @@
         <p>Write the first comment for this article.</p>
       </div>
       <hr>
-      <div id="new-comment-field">
-        <textarea></textarea>
+      <div>
+        <textarea id="new-comment-field"></textarea>
       </div>
     </section>
     <footer class="modal-card-foot">
-      <button id="save-comment" class="button is-success">Save Comment</button>
+      {{!-- Save comment button dynamically rendered to include data-id attribute of article--}}
     </footer>
   </div>
 </div>

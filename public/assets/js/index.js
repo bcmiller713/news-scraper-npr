@@ -27,7 +27,7 @@ $(document).ready(function() {
 		// Run a POST request to update the article to be saved
 	  $.ajax({
 	    method: "POST",
-	    url: "/articles/" + articleID,
+	    url: "/save/" + articleID,
 	    data: {
 	      saved: true
 	    }
