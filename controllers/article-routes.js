@@ -51,9 +51,11 @@ router.get("/scrape", function(req, res) {
 // This will get the articles we scraped from the mongoDB
 router.get("/articles", function(req, res) {
   // Grab every doc in the Articles array
-  Article.find({}, function(error, doc) {
+  Article.find({})
+  // Execute the above query
+  .exec(function(err, doc) {
     // Log any errors
-    if (error) {
+    if (err) {
       console.log(error);
     }
     // Or send the doc to the browser as a json object
@@ -130,6 +132,24 @@ router.post("/comment/:id", function(req, res) {
       });
     }
   });
+});
+
+// Remove a saved article
+router.post("/unsave/:id", function(req, res) {
+  // Use the article id to find and update it's saved property to false
+  Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false })
+  // Execute the above query
+  .exec(function(err, doc) {
+    // Log any errors
+    if (err) {
+      console.log(err);
+    }
+    // Log result
+    else {
+      console.log("Article Removed");
+    }
+  });
+  res.redirect("/saved");
 });
 
 

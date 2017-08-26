@@ -6,6 +6,10 @@ a#home, a.home, a#saved, a.saved {
 	display: none;
 }
 
+#hero-title {
+	padding-bottom: 20px;
+}
+
 section.section {
 	padding-bottom: 0;
 	min-height: 100%;

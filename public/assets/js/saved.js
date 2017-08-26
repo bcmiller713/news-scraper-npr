@@ -87,7 +87,17 @@ $(document).ready(function() {
 
 	// Removing Saved Articles
 	$(document).on("click", ".unsave-button", function() {
-		// change saved property of that article and reload the page
+		// Get article id
+		var articleID = $(this).attr("data-id");
+		console.log(articleID);
+		// Run a POST request to update the article to be saved
+	  $.ajax({
+	    method: "POST",
+	    url: "/unsave/" + articleID,
+	    data: {
+	      saved: false
+	    }
+	  });
 	});
 
 });
