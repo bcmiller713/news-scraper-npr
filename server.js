@@ -36,8 +36,8 @@ app.use("/", articleRouter);
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-// mongoose.connect("mongodb://localhost/news-scraper");
-mongoose.connect("mongodb://heroku_hmpnswzv:fm7inj72s3n17kevhkrponbij@ds151153.mlab.com:51153/heroku_hmpnswzv");
+var URI = process.env.MONGO_URI || 'mongodb://localhost:27017/news-scraper'; 
+mongoose.connect(URI);
 var db = mongoose.connection;
 
 // Show any mongoose errors

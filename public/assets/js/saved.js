@@ -41,7 +41,7 @@ $(document).ready(function() {
 	  		$("#comments-list").empty();
 	  		for (i = 0; i < data.comments.length; i++) {
 	  			// Append all article comments
-					$("#comments-list").html("<div class='comment-div'><p class='comment'>" + data.comments[i].body + "</p></div>");
+					$("#comments-list").append("<div class='comment-div'><p class='comment'>" + data.comments[i].body + "</p></div>");
 	  		}
 	  	}
 	  	// Append save comment button with article's ID saved as data-id attribute
@@ -59,8 +59,6 @@ $(document).ready(function() {
 	$(document).on("click", "#save-comment", function() {
 	  // Grab the id associated with the article from the submit button
 	  var articleID = $(this).attr("data-id");
-	  console.log("Save Comment - articleID", articleID);
-	  console.log($("#new-comment-field").val());
 	  // Run a POST request to add a comment, using what's entered in the inputs
 	  $.ajax({
 	    method: "POST",
