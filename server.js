@@ -36,7 +36,7 @@ app.use("/", articleRouter);
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-var URI = process.env.MONGO_URI || 'mongodb://localhost:27017/news-scraper'; 
+var URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/news-scraper'; 
 mongoose.connect(URI);
 var db = mongoose.connection;
 
